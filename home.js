@@ -5,14 +5,14 @@
 
 const showMenu = () => {  
 
-    document.getElementById("menu-bar").style.display = "none";
-    document.getElementById("menu").style.display = "block";
+    //document.getElementById("menu-bar").style.display = "none";
+    document.getElementById("menu").style.visibility = "visible";
 
 };
 
 const hideMenu = () => {
-    document.getElementById("menu").style.display = "none";
-     document.getElementById("menu-bar").style.display = "block";
+    document.getElementById("menu").style.visibility = "hidden";
+     //document.getElementById("menu-bar").style.display = "block";
  };
  //question for ingrid- why couldnt i use display-absolute-or just look it up myself
 
