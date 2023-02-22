@@ -1,0 +1,29 @@
+body {
+    margin: 0%;
+    padding: 0%;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 1px;
+    color: #383c3a;
+
+}
+
+main {
+    margin: 2em 20%;
+    text-align: left;
+}
+
+h3 {
+    font-size: 2rem;
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+}
+
+p {
+    line-height: 2rem;
+}
+
+.video {
+    text-align: center;
+}
