@@ -1,0 +1,115 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 1px;
+    color: #383c3a;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 800px;
+    grid-gap: 4rem;
+    margin: 0em 15%;
+
+}
+
+h2 {
+    font-size: 2.75rem;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+}
+p {
+    line-height: 2rem;
+}
+
+.prod-img-container {
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin-right: 5%;
+}
+
+#product-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+   
+}
+
+.thumbnails {
+    display: grid;
+    grid-template-columns: 55px 55px 55px 55px 55px 55px 55px 55px 55px ;
+    grid-auto-rows: 110px;
+    grid-gap: 1rem;
+    margin-top: 1rem;
+   
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.thumbnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    
+}
+
+
+
+#price {
+    color: lightgray;
+    font-size: 1.5rem;
+}
+.text {}
+
+button {
+    background-color: grey;
+    color: white;
+    padding: 1.25rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 1000px;
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    margin-top: 1rem;
+
+}
+
+
+
+button:hover {
+    background-color: lightgray;
+    color: darkgray;
+}
+
+button:active {
+    background-color: black;
+    color: white;
+}
+
+label {
+    color: lightgray;
+    font-size: 1.25rem;
+    margin-right: .65rem;
+    margin-bottom: 1rem;
+}
+select {
+    border: none;
+    font-size: 1.25rem;
+    color: #383c3a;
+    padding: 1rem;
+    border-radius: 10%;
+    font-family: 'Josefin Sans', sans-serif;
+}

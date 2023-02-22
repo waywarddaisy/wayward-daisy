@@ -1,0 +1,54 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 1px;
+    color: #383c3a;
+}
+
+main {
+    margin: 0% 8%;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: 500px;
+    grid-column-gap: 2rem;
+    grid-row-gap: 20%;
+}
+
+.gallery-item {
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-item .image {
+    width:100%;
+    height:100%;
+    overflow: hidden;
+}
+
+.gallery-item .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+h4 {
+    font-size: 1.5rem;
+    font-weight: lighter;
+    font-family: 'Playfair Display', serif;
+}
+
+
+
+a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+   }
