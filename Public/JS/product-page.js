@@ -1,58 +1,3 @@
-const populatePage = ()=>{
-    if (event.target.className.includes(products[0].name))
-    {showProduct(products[0])}
-    else if (event.target.className.includes(products[1].name))
-    {showProduct(products[1])}
-    else if (event.target.className.includes(products[2].name))
-    {showProduct(products[2])}
-    else if (event.target.className.includes(products[3].name))
-    {showProduct(products[3])}
-    else if (event.target.className.includes(products[4].name))
-    {showProduct(products[4])}
-   
-};
-
-const takeToProdPage =()=>{
-    let link = event.target;
-    console.log(link);
-    console.log(link.className);
-    document.getElementById("gallery").style.display= "none";
-    populatePage();
-  
-};
-
-const displayProduct =(product)=> {
-    let container = document.getElementById("gallery");
-    let galleryItem = document.createElement("div");
-    galleryItem.className=`gallery-item ${product.name}`;
-    galleryItem.addEventListener("click", takeToProdPage);
-    container.appendChild(galleryItem);
-    let image = document.createElement("div");
-    image.className = `image ${product.name}`;
-    galleryItem.appendChild(image);
-    let prodImg = document.createElement("img");
-    prodImg.className=`${product.name}`;
-    prodImg.src = `${product.imgSrc}`;
-    image.appendChild(prodImg);
-    let textContainer = document.createElement("div");
-    textContainer.className= `text ${product.name}`;
-    let h4 = document.createElement("h4");
-    h4.className=`${product.name}`;
-    h4.innerHTML =`${product.name}`;
-    textContainer.appendChild(h4);
-    let pricePara = document.createElement("p");
-    pricePara.className=`${product.name}`;
-    pricePara.innerHTML = `from $${product.price}`;
-    textContainer.appendChild(pricePara);
-    galleryItem.appendChild(textContainer);
-};
-
-
-products.forEach(product =>displayProduct(product));
-
-///here is product page stuff--------------------------------------------
-
-
 
 const thumbnailDisplay = (url, thumbnailsDiv, prodImg) => {
 
@@ -89,6 +34,7 @@ const addToCart=(prod) => {
     document.getElementById("quantity").value=1;
     console.log(shoppingCart)
 };
+
 
     const showProduct = (prod) => {
 
@@ -146,13 +92,20 @@ const addToCart=(prod) => {
     };
 
     //takes in product 
-    //showProduct(products[4]);
+    showProduct(products[4]);
 
+    /*const populatePage = ()=>{
+        if (event.target.className.includes(products[0].name))
+        {showProduct[0]}
+        else if (event.target.className.includes(products[1].name))
+        {showProduct[1]}
+        else if (event.target.className.includes(products[2].name))
+        {showProduct[2]}
+        else if (event.target.className.includes(products[3].name))
+        {showProduct[3]}
+        else if (event.target.className.includes(products[4].name))
+        {showProduct[4]}
+    };
 
-    ///---------------------use this
-    
+    populatePage();*/
 
-
-
-   
-    

@@ -282,23 +282,30 @@ sec1-gallery-item img {
 
 .sec4-grid-container {
     display: grid;
-    grid-template-rows: 30em;
+    grid-auto-rows: 400px;
     grid-template-columns: 33%, 33%, 33%;
     grid-template-areas: "one two three";
     grid-column-gap: 3rem;
     margin: 2rem 6rem;
 }
 
-
-#sec4-sec1 {
-    grid-area: "one";
+.sec4-item-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
-#sec4-sec2 {
-    grid-area: "two";
+.img-container-sec4 {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
-#sec4-sec3 {
-    grid-area: "three";
+.sec4-img  {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+
 }
 
 /*footer*/

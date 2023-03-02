@@ -1,21 +1,120 @@
+console.log(shoppingCart);
+const findSubTotal = () => {
+    let subTotal = 0;
+    for (let i = 0; i < shoppingCart.length; i++) { subTotal += shoppingCart[i].price * shoppingCart[i].quantity }
+    return subTotal
+};
 
-const small = {
-    name: "Small Seasonal Arranged Flowers",
-    description: "petite seasonal arrangement",
-    price: 65,
-    quantity: 1,
-    thumbnail: document.getElementById("testing")
-}
+//remove from cart
+const removeFromCart = () => {
+    let targetId = event.target.id;
+    for (let i = 0; i < shoppingCart.length; i++) {
+        if (shoppingCart[i].id == targetId) {
+            shoppingCart.splice(shoppingCart[i], 1)
+        }
+    };
+    let parent = event.target.parentElement;
+    let grandparent = parent.parentElement;
+    grandparent.remove();
+    findSubTotal();
+    document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
+    if (shoppingCart.length<1)
+    {displayCart()}
+};
 
-const shoppingCart= [small];
+const changeQtyMinus = () => {
+    //in the if statement put an && for num units being not less that one and not more than inventory
+    for (let i = 0; i < shoppingCart.length; i++) {
+        if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity - 1 > 0) {
+            shoppingCart[i].quantity--;
+            let newQty = shoppingCart[i].quantity;
+            event.target.nextElementSibling.innerHTML = `<span>${newQty}</span>`;
+            let newPrice = shoppingCart[i].price * shoppingCart[i].quantity;
+            event.target.parentElement.nextElementSibling.innerHTML = `${newPrice}`;
+        }
+    };
+
+    findSubTotal();
+    document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
+    console.log(shoppingCart);
+};
+
+const changeQtyPlus = () => {
+
+    for (let i = 0; i < shoppingCart.length; i++) {
+        if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity + 1 <= shoppingCart[i].instock) {
+            shoppingCart[i].quantity++;
+            let newQty = shoppingCart[i].quantity;
+            event.target.previousElementSibling.innerHTML = `<span>${newQty}</span>`;
+            //right here
+            let newPrice = shoppingCart[i].price * shoppingCart[i].quantity;
+            event.target.parentElement.nextElementSibling.innerHTML = `${newPrice}`;
+        }
+        else if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity + 1 > shoppingCart[i].instock) {
+            alert(`only ${shoppingCart[i].instock} in stock`)
+        }
+
+    };
+    findSubTotal();
+    document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
+    console.log(shoppingCart);
+};
 
 
+const formatCart = (product) => {
+    let prodID = product.id;
+    let itemContainer = document.createElement("div");
+    itemContainer.className = "item-container";
+    document.getElementById("cart-container").appendChild(itemContainer)
+    let divOne = document.createElement("div");
+    itemContainer.appendChild(divOne);
+    divOne.className = "thumbnail";
+    let imgTag = document.createElement("img")
+    divOne.appendChild(imgTag);
+    imgTag.className = "thumbnail-image";
+    imgTag.src = product.imgSrc;
+    let divTwo = document.createElement("div");
+    itemContainer.appendChild(divTwo);
+    divTwo.className = "title";
+    let titleText = document.createElement("h4");
+    divTwo.appendChild(titleText);
+    titleText.className = "title";
+    titleText.innerHTML = product.name;
+    let divThree = document.createElement("div");
+    itemContainer.appendChild(divThree);
+    //figure out quantity here or enter external function
+    divThree.className = "quantity";
+    divThree.innerHTML = `<i class="fa-solid fa-minus ${product.name}" onclick= "changeQtyMinus()"></i><span>${product.quantity}</span><i class="fa-solid fa-plus ${product.name}" onclick="changeQtyPlus()"></i>`;
+    let divFour = document.createElement("div");
+    itemContainer.appendChild(divFour);
+    divFour.className = "price";
+    //not sure if this is right
+    divFour.innerHTML = product.price * product.quantity;
+    let divFive = document.createElement("div");
+    let xIcon = divFive.innerHTML = `<i class="fa-solid fa-x" id=${prodID} onclick="removeFromCart()" ></i>`;
+    itemContainer.appendChild(divFive);
+};
 
-const displayCart = ()=> {
-    document.getElementById("thumbnail").innerHTML = shoppingCart[0].thumbnail;
-    document.getElementById("title").innerHTML = shoppingCart[0].name;
-    document.getElementById("qty").innerHTML = shoppingCart[0].quantity;
-    document.getElementById("price").innerHTML = `$${shoppingCart[0].price}`;
+const emptyCartOption = () => {
+    let emptyCart = document.createElement("div");
+    document.getElementById("cart-container").appendChild(emptyCart);
+    let emptyCartText = document.createElement("p");
+    emptyCart.appendChild(emptyCartText);
+    emptyCartText.innerHTML = "Your Shopping Cart is Empty";
+    document.getElementById("checkout-button").disabled= true;
+};
+
+const displayCart = () => {
+    if (shoppingCart.length > 0) {
+        shoppingCart.forEach(product => { formatCart(product) });
+    } else {
+        emptyCartOption()
+
+    }
 };
 
 displayCart();
+
+//subtotal
+document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
+
