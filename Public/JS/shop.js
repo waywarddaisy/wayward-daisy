@@ -81,13 +81,17 @@ const qtyDropDown = (prod, select) => {
 const addToCart=(prod) => {
     let qty= document.getElementById("quantity").value;
     //changed qty to integer instead of string
-    Number(qty);
+    qty =Number(qty);
+  //console.log(qty, typeof qty);
   //copying item to cart with the ... and then adding a key value for quantity
     let cartItem = {...prod, quantity: qty};
+    save();
     shoppingCart.push(cartItem);
+    localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+    //not sure if this is right, test_______________________________________________________________________________
     //reset
     document.getElementById("quantity").value=1;
-    console.log(shoppingCart)
+    console.log(shoppingCart,"addtocart")
 };
 
     const showProduct = (prod) => {
@@ -151,7 +155,6 @@ const addToCart=(prod) => {
 
     ///---------------------use this
     
-
 
 
    

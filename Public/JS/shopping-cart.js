@@ -1,5 +1,6 @@
 console.log(shoppingCart);
 const findSubTotal = () => {
+    save();
     let subTotal = 0;
     for (let i = 0; i < shoppingCart.length; i++) { subTotal += shoppingCart[i].price * shoppingCart[i].quantity }
     return subTotal
@@ -7,10 +8,12 @@ const findSubTotal = () => {
 
 //remove from cart
 const removeFromCart = () => {
+    save();
     let targetId = event.target.id;
     for (let i = 0; i < shoppingCart.length; i++) {
         if (shoppingCart[i].id == targetId) {
-            shoppingCart.splice(shoppingCart[i], 1)
+            shoppingCart.splice(shoppingCart[i], 1);
+            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
         }
     };
     let parent = event.target.parentElement;
@@ -18,15 +21,15 @@ const removeFromCart = () => {
     grandparent.remove();
     findSubTotal();
     document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
-    if (shoppingCart.length<1)
-    {displayCart()}
+    if (shoppingCart.length < 1) { displayCart() }
 };
 
 const changeQtyMinus = () => {
-    //in the if statement put an && for num units being not less that one and not more than inventory
+    save();
     for (let i = 0; i < shoppingCart.length; i++) {
         if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity - 1 > 0) {
             shoppingCart[i].quantity--;
+            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
             let newQty = shoppingCart[i].quantity;
             event.target.nextElementSibling.innerHTML = `<span>${newQty}</span>`;
             let newPrice = shoppingCart[i].price * shoppingCart[i].quantity;
@@ -40,25 +43,28 @@ const changeQtyMinus = () => {
 };
 
 const changeQtyPlus = () => {
-
+    save();
     for (let i = 0; i < shoppingCart.length; i++) {
         if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity + 1 <= shoppingCart[i].instock) {
             shoppingCart[i].quantity++;
+            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
             let newQty = shoppingCart[i].quantity;
             event.target.previousElementSibling.innerHTML = `<span>${newQty}</span>`;
             //right here
             let newPrice = shoppingCart[i].price * shoppingCart[i].quantity;
-            event.target.parentElement.nextElementSibling.innerHTML = `${newPrice}`;
-        }
-        else if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity + 1 > shoppingCart[i].instock) {
-            alert(`only ${shoppingCart[i].instock} in stock`)
+            event.target.parentElement.nextElementSibling.innerHTML = `${newPrice}`
         }
 
+        else if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity + 1 > shoppingCart[i].instock) {
+            alert(`only ${shoppingCart[i].instock} in stock`)
+
+        }
     };
     findSubTotal();
     document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
     console.log(shoppingCart);
 };
+
 
 
 const formatCart = (product) => {
@@ -82,13 +88,13 @@ const formatCart = (product) => {
     titleText.innerHTML = product.name;
     let divThree = document.createElement("div");
     itemContainer.appendChild(divThree);
-    //figure out quantity here or enter external function
+    //quantity
     divThree.className = "quantity";
     divThree.innerHTML = `<i class="fa-solid fa-minus ${product.name}" onclick= "changeQtyMinus()"></i><span>${product.quantity}</span><i class="fa-solid fa-plus ${product.name}" onclick="changeQtyPlus()"></i>`;
     let divFour = document.createElement("div");
     itemContainer.appendChild(divFour);
     divFour.className = "price";
-    //not sure if this is right
+    //in-line total
     divFour.innerHTML = product.price * product.quantity;
     let divFive = document.createElement("div");
     let xIcon = divFive.innerHTML = `<i class="fa-solid fa-x" id=${prodID} onclick="removeFromCart()" ></i>`;
@@ -101,10 +107,11 @@ const emptyCartOption = () => {
     let emptyCartText = document.createElement("p");
     emptyCart.appendChild(emptyCartText);
     emptyCartText.innerHTML = "Your Shopping Cart is Empty";
-    document.getElementById("checkout-button").disabled= true;
+    document.getElementById("checkout-button").disabled = true;
 };
 
 const displayCart = () => {
+    save();
     if (shoppingCart.length > 0) {
         shoppingCart.forEach(product => { formatCart(product) });
     } else {

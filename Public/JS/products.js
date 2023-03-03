@@ -144,29 +144,24 @@ thumbnailUrls:[
 
 ];
 
-let shoppingCart = [
-    {  id: 0,
-        name: "Small Seasonal Arranged Flowers",
-        price: 65.00,
-        instock: 5,
-        description: "petite seasonal flower arrangement",
-        imgSrc: "https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677354587/Wayward%20Daisy%20Photos/Shop%20WWD/small_tj1kaz.jpg",
-        productPageUrl: "/Public/small-seasonal-arranged-flowers.html",
-        quantity: 1
-    },
-    {  id: 1,
-        name: "Medium Seasonal Arranged Flowers",
-        price: 85.00,
-        instock: 5,
-        description: "medium seasonal flower arrangement",
-        imgSrc: "https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677354598/Wayward%20Daisy%20Photos/Shop%20WWD/medium_juh516.jpg",
-        productPageUrl: "/Public/medium-seasonal-arranged-flowers.html",
-        quantity: 1
+
+const save = ()=>{
+    if (localStorage.getItem("shoppingCart")===null){
+        localStorage.setItem("shoppingCart", JSON.stringify([]))
     }
+};
 
-];
+save();
+shoppingCart= JSON.parse(localStorage.getItem("shoppingCart"));
 
-//let shoppingCart = [];
+
+ 
+
+
+
+
+
+
 
 
 
