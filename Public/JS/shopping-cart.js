@@ -1,40 +1,7 @@
-//header
 
-const showMenu = () => {  
-
-    document.getElementById("menu").style.visibility = "visible";
-
-};
-
-const hideMenu = () => {
-    document.getElementById("menu").style.visibility = "hidden";
-     //document.getElementById("menu-bar").style.display = "block";
- };
-
-document.getElementById("menu-bar").addEventListener("click", showMenu);
-document.getElementById("menu-x").addEventListener("click", hideMenu);
-
-let bottomMenu =document.getElementById("bottom-menu");
-
-const showBottomMenu= ()=> {
-    document.getElementById("bottom-menu-icon").style.display="none";
-    bottomMenu.style.display="block";
-    document.getElementById("bottom-menu-x").style.display="block";
-};
-
-const hideBottomMenu=()=> {
-   document.getElementById("bottom-menu-x").style.display="none";
-    bottomMenu.style.display="none";
-    document.getElementById("bottom-menu-icon").style.display="block";
-};
-
-console.log(document.getElementById("bottom-menu-icon"));
-document.getElementById("bottom-menu-icon").addEventListener('click', showBottomMenu);
-document.getElementById("bottom-menu-x").addEventListener('click', hideBottomMenu);
-//end header 
-console.log(shoppingCart);
+console.log(getShoppingCart(), "not in function");
 const findSubTotal = () => {
-    save();
+    let shoppingCart = getShoppingCart();
     let subTotal = 0;
     for (let i = 0; i < shoppingCart.length; i++) { subTotal += shoppingCart[i].price * shoppingCart[i].quantity }
     return subTotal
@@ -42,29 +9,37 @@ const findSubTotal = () => {
 
 //remove from cart
 const removeFromCart = () => {
-    save();
-    let targetId = event.target.id;
+    let shoppingCart = getShoppingCart();
+    console.log(shoppingCart, "before for loop");
+    let targetId = Number(event.target.id);
     for (let i = 0; i < shoppingCart.length; i++) {
         if (shoppingCart[i].id == targetId) {
-            shoppingCart.splice(shoppingCart[i], 1);
-            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+            console.log(shoppingCart[i].id, targetId);
+            console.log(shoppingCart, "before splice");
+            shoppingCart.splice(i, 1);
+            console.log(shoppingCart, "after splice");
         }
     };
+    saveToCart(shoppingCart);
     let parent = event.target.parentElement;
+    console.log(parent);
     let grandparent = parent.parentElement;
+    console.log(grandparent);
     grandparent.remove();
     findSubTotal();
     document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
-    if (shoppingCart.length < 1) { displayCart() }
-    //displayCart();
+    getSalesTax();
+    //if (shoppingCart.length < 1) { displayCart() }
+
 };
 
+
 const changeQtyMinus = () => {
-    save();
+    let shoppingCart = getShoppingCart();
     for (let i = 0; i < shoppingCart.length; i++) {
         if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity - 1 > 0) {
             shoppingCart[i].quantity--;
-            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+            saveToCart(shoppingCart);
             let newQty = shoppingCart[i].quantity;
             event.target.nextElementSibling.innerHTML = `<span>${newQty}</span>`;
             let newPrice = shoppingCart[i].price * shoppingCart[i].quantity;
@@ -75,14 +50,15 @@ const changeQtyMinus = () => {
     findSubTotal();
     document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
     console.log(shoppingCart);
+    getSalesTax();
 };
 
 const changeQtyPlus = () => {
-    save();
+    let shoppingCart = getShoppingCart();
     for (let i = 0; i < shoppingCart.length; i++) {
         if (event.target.className.includes(shoppingCart[i].name) && shoppingCart[i].quantity + 1 <= shoppingCart[i].instock) {
             shoppingCart[i].quantity++;
-            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+            saveToCart(shoppingCart);
             let newQty = shoppingCart[i].quantity;
             event.target.previousElementSibling.innerHTML = `<span>${newQty}</span>`;
             //right here
@@ -97,7 +73,9 @@ const changeQtyPlus = () => {
     };
     findSubTotal();
     document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
-    console.log(shoppingCart);
+    console.log(getShoppingCart());
+    getSalesTax();
+
 };
 
 
@@ -138,25 +116,70 @@ const formatCart = (product) => {
 
 const emptyCartOption = () => {
     let emptyCart = document.createElement("div");
+    emptyCart.className = "empty-cart";
     document.getElementById("cart-container").appendChild(emptyCart);
     let emptyCartText = document.createElement("p");
     emptyCart.appendChild(emptyCartText);
     emptyCartText.innerHTML = "Your Shopping Cart is Empty";
     document.getElementById("checkout-button").disabled = true;
+
 };
 
 const displayCart = () => {
-    save();
+    let shoppingCart = getShoppingCart();
     if (shoppingCart.length > 0) {
         shoppingCart.forEach(product => { formatCart(product) });
-    } else if (shoppingCart.length ==0) {
+    } else if (shoppingCart.length == 0) {
         emptyCartOption()
 
     }
+    console.log(shoppingCart, "display Cart")
 };
 
 displayCart();
 
 //subtotal
 document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
+
+//gets sales tax
+
+const getSalesTax = () => {
+
+    let shoppingCart = getShoppingCart();
+    let sub = findSubTotal();
+    console.log(sub, "getSalesTax sub cl1");
+    let taxTimeQty = "";
+    for (let i = 0; i < shoppingCart.length; i++) {
+        if (shoppingCart[i].taxable === "no") {
+            taxTimeQty += shoppingCart[i].price * shoppingCart[i].quantity;
+            console.log(taxTimeQty, "getSalesTax taxTimeQty");
+            sub -= taxTimeQty;
+            console.log(sub, "getSalesTax sub c2");
+        }
+    }
+    salesTax = sub * vistaSalesAndUseTax;
+    console.log(salesTax, "getSalesTax");
+    salesTax = salesTax.toFixed(2);
+    console.log(salesTax, "getSalesTax");
+    document.getElementById("tax").innerHTML = `$${salesTax}`;
+};
+
+getSalesTax();
+
+const handleCheckout = async () => {
+    try {
+        const response = await fetch("http://localhost:3000/create-checkout-session", {
+            method: "POST",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: localStorage.getItem("shoppingCart")
+        });
+
+    } catch (error) {
+        console.log(error)
+    }
+
+};
 
