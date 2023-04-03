@@ -24,7 +24,7 @@ app.get('/contact', (req, res) => {
 app.get('/shopping-cart', (req, res) => {
   res.sendFile(path.join(__dirname, "./Public/shopping-cart.html"))
 })
-app.get('/testheader', (req, res) => {
+app.get('/product-page', (req, res) => {
   res.sendFile(path.join(__dirname, "./Public/product-page.html"))
 })
 // This is your test secret API key.

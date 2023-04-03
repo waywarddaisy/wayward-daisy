@@ -1,13 +1,13 @@
 
-const gardenPhotoUrls = ["https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355551/Wayward%20Daisy%20Photos/Garden%20WWD/one_jd59gh.jpg",
-"https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355688/Wayward%20Daisy%20Photos/Garden%20WWD/two_vgpdy9.jpg",
-"https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677361530/Wayward%20Daisy%20Photos/Garden%20WWD/three_dopu7i.jpg",
-"https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355557/Wayward%20Daisy%20Photos/Garden%20WWD/four_hx0r6o.jpg",
-"https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355484/Wayward%20Daisy%20Photos/Garden%20WWD/five_edzlmn.jpg",
-"https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355600/Wayward%20Daisy%20Photos/Garden%20WWD/six_yqp0o2.jpg",
-"https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355601/Wayward%20Daisy%20Photos/Garden%20WWD/seven_yc59cf.jpg",
-"https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355487/Wayward%20Daisy%20Photos/Garden%20WWD/eight_mdwjqx.jpg",
-"https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355530/Wayward%20Daisy%20Photos/Garden%20WWD/nine_igxj4o.jpg",
+const gardenPhotoUrls = ["https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677355551/Wayward%20Daisy%20Photos/Garden%20WWD/one_jd59gh.jpg",
+"https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677355688/Wayward%20Daisy%20Photos/Garden%20WWD/two_vgpdy9.jpg",
+"https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677361530/Wayward%20Daisy%20Photos/Garden%20WWD/three_dopu7i.jpg",
+"https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677355557/Wayward%20Daisy%20Photos/Garden%20WWD/four_hx0r6o.jpg",
+"https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677355484/Wayward%20Daisy%20Photos/Garden%20WWD/five_edzlmn.jpg",
+"https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677355600/Wayward%20Daisy%20Photos/Garden%20WWD/six_yqp0o2.jpg",
+"https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677355601/Wayward%20Daisy%20Photos/Garden%20WWD/seven_yc59cf.jpg",
+"https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677355487/Wayward%20Daisy%20Photos/Garden%20WWD/eight_mdwjqx.jpg",
+"https://res.cloudinary.com/dw0mjyoeg/image/upload/w_600,q_auto,f_auto/v1677355530/Wayward%20Daisy%20Photos/Garden%20WWD/nine_igxj4o.jpg",
 "https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355568/Wayward%20Daisy%20Photos/Garden%20WWD/ten_ro1cyz.jpg",
 "https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355446/Wayward%20Daisy%20Photos/Garden%20WWD/eleven_q6teri.jpg",
 "https://res.cloudinary.com/dw0mjyoeg/image/upload/v1677355662/Wayward%20Daisy%20Photos/Garden%20WWD/twelve_vdrrkn.jpg",
@@ -58,17 +58,19 @@ const gardenPhotoUrls = ["https://res.cloudinary.com/dw0mjyoeg/image/upload/v167
 
 const displayGallery =(url)=> {
 
-let grid =document.getElementById("gallery-container");
-let divOne = document.createElement("div");
-let galleryItem =grid.appendChild(divOne);
-galleryItem.className= `gallery-item`;
-let divTwo = document.createElement("div")
-let imageDiv = galleryItem.appendChild(divTwo);
-imageDiv.className = `image`;
-let gardenPhoto = document.createElement("img");
-let imageSrc = imageDiv.appendChild(gardenPhoto);
-imageSrc.src = url
-}
+    let grid =document.getElementById("gallery-container");
+    let divOne = document.createElement("div");
+    grid.appendChild(divOne);
+    divOne.className= `gallery-item`;
+    let divTwo = document.createElement("div")
+    divOne.appendChild(divTwo);
+    divTwo.className = `image`;
+    let gardenPhoto = document.createElement("img");
+    divTwo.appendChild(gardenPhoto);
+    gardenPhoto.src = url;
+    gardenPhoto.setAttribute("loading", "lazy");
+    
+    }
 
 gardenPhotoUrls.forEach((url)=> {displayGallery(url)})
 

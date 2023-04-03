@@ -1,10 +1,95 @@
 
-console.log(getShoppingCart(), "not in function");
+const calculateShipping = () => {
+    let shoppingCart = getShoppingCart();
+    //console.log(shoppingCart, "shipping");
+    let delSearch = shoppingCart.filter(prod => prod.id === 0 || prod.id === 1 || prod.id === 2);
+    console.log(delSearch, "delSearch");
+    //console.log(delSearch.length, "length");
+    let mailSearch = shoppingCart.filter(prod => prod.id === 4);
+    //console.log(mailSearch, "mailSearch", mailSearch.length);
+    let shipping = 0;
+
+    if (delSearch.length > 0) {
+        shipping = Delivery
+    } else if (mailSearch.length > 0 && delSearch.length == 0) {
+        for (let i = 0; i < shoppingCart.length; i++) {
+            if (shoppingCart[i].id === 4) {
+                shipping += Mail * shoppingCart[i].quantity
+            }
+        }
+    };
+    return Number(shipping);
+};
+console.log(calculateShipping(), "shipping");
+
+const displayShipping = () => {
+    document.getElementById("shipping").innerHTML = `$${calculateShipping()}`;
+};
+
+
+
+//finds subtotal
 const findSubTotal = () => {
     let shoppingCart = getShoppingCart();
     let subTotal = 0;
     for (let i = 0; i < shoppingCart.length; i++) { subTotal += shoppingCart[i].price * shoppingCart[i].quantity }
-    return subTotal
+    return Number(subTotal);
+};
+
+//displays subTotal
+
+const displaySubTotal = ()=> {
+    document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
+};
+
+//gets sales tax
+
+const getSalesTax = () => {
+
+    let shoppingCart = getShoppingCart();
+    let sub = findSubTotal();
+    console.log(sub, "getSalesTax sub cl1");
+    let taxTimeQty = "";
+    for (let i = 0; i < shoppingCart.length; i++) {
+        if (shoppingCart[i].taxable === "no") {
+            taxTimeQty += shoppingCart[i].price * shoppingCart[i].quantity;
+            console.log(taxTimeQty, "getSalesTax taxTimeQty");
+            sub -= taxTimeQty;
+            console.log(sub, "getSalesTax sub c2");
+        }
+    }
+    salesTax = sub * vistaSalesAndUseTax;
+    console.log(salesTax, "getSalesTax");
+    salesTax = salesTax.toFixed(2);
+    console.log(salesTax, "getSalesTax");
+    return salesTax;
+    //document.getElementById("tax").innerHTML = `$${salesTax}`;
+};
+
+const displaySalesTax = () => {
+    document.getElementById("tax").innerHTML = `$${getSalesTax()}`;
+};
+
+//get total and display
+const getTotal = () => {
+    let total = Number(findSubTotal()) + Number(getSalesTax()) + Number(calculateShipping());
+    total= Number(total);
+    return total = total.toFixed(2);
+    
+};
+
+const displayTotal =()=> {
+    document.getElementById("total").innerHTML = `$${getTotal()}`;
+};
+
+//recalculates and displays, subtotal, tax, shipping and total
+const displaySubTaxShipTotal= ()=>{
+    
+    displaySubTotal();
+    displaySalesTax();
+    displayShipping();
+    displayTotal();
+    
 };
 
 //remove from cart
@@ -26,10 +111,7 @@ const removeFromCart = () => {
     let grandparent = parent.parentElement;
     console.log(grandparent);
     grandparent.remove();
-    findSubTotal();
-    document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
-    getSalesTax();
-    //if (shoppingCart.length < 1) { displayCart() }
+    displaySubTaxShipTotal();
 
 };
 
@@ -47,10 +129,7 @@ const changeQtyMinus = () => {
         }
     };
 
-    findSubTotal();
-    document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
-    console.log(shoppingCart);
-    getSalesTax();
+    displaySubTaxShipTotal();
 };
 
 const changeQtyPlus = () => {
@@ -71,10 +150,7 @@ const changeQtyPlus = () => {
 
         }
     };
-    findSubTotal();
-    document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
-    console.log(getShoppingCart());
-    getSalesTax();
+    displaySubTaxShipTotal();
 
 };
 
@@ -108,7 +184,7 @@ const formatCart = (product) => {
     itemContainer.appendChild(divFour);
     divFour.className = "price";
     //in-line total
-    divFour.innerHTML = product.price * product.quantity;
+    divFour.innerHTML = `$${product.price * product.quantity}`;
     let divFive = document.createElement("div");
     let xIcon = divFive.innerHTML = `<i class="fa-solid fa-x" id=${prodID} onclick="removeFromCart()" ></i>`;
     itemContainer.appendChild(divFive);
@@ -122,6 +198,7 @@ const emptyCartOption = () => {
     emptyCart.appendChild(emptyCartText);
     emptyCartText.innerHTML = "Your Shopping Cart is Empty";
     document.getElementById("checkout-button").disabled = true;
+    displaySubTaxShipTotal();
 
 };
 
@@ -133,38 +210,18 @@ const displayCart = () => {
         emptyCartOption()
 
     }
-    console.log(shoppingCart, "display Cart")
+    displaySubTaxShipTotal();
+
 };
 
 displayCart();
 
 //subtotal
-document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
+// document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
 
-//gets sales tax
 
-const getSalesTax = () => {
 
-    let shoppingCart = getShoppingCart();
-    let sub = findSubTotal();
-    console.log(sub, "getSalesTax sub cl1");
-    let taxTimeQty = "";
-    for (let i = 0; i < shoppingCart.length; i++) {
-        if (shoppingCart[i].taxable === "no") {
-            taxTimeQty += shoppingCart[i].price * shoppingCart[i].quantity;
-            console.log(taxTimeQty, "getSalesTax taxTimeQty");
-            sub -= taxTimeQty;
-            console.log(sub, "getSalesTax sub c2");
-        }
-    }
-    salesTax = sub * vistaSalesAndUseTax;
-    console.log(salesTax, "getSalesTax");
-    salesTax = salesTax.toFixed(2);
-    console.log(salesTax, "getSalesTax");
-    document.getElementById("tax").innerHTML = `$${salesTax}`;
-};
-
-getSalesTax();
+displaySalesTax();
 
 const handleCheckout = async () => {
     try {
