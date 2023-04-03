@@ -10,7 +10,6 @@ altLogoImg.id = "alt-logo";
 altHeader.appendChild(altLogoImg);
 let body = document.getElementById("body");
 altContainer.appendChild(altHeader);
-//body.appendChild(altHeader);
 let header = document.createElement("div");
 header.className = "header";
 body.appendChild(header);
@@ -106,7 +105,6 @@ searchEntry.appendChild(searchInput);
 searchEntry.appendChild(smallSearchIcon);
 searchBar.appendChild(searchEntry);
 header.appendChild(searchBar);
-//testing search-----------------------------------------------------------**
 //cart icon
 let cartLink = document.createElement("a");
 cartLink.href = "/shopping-cart";
@@ -139,7 +137,7 @@ const onSearchType = () => {
             let searchResults = document.getElementById("results");
             searchResults.appendChild(resultsLink);
             resultsLink.addEventListener("click", () => { saveProdId(products[i].id) });
-            
+
             resultsNum.push("1");
 
         }
@@ -150,16 +148,17 @@ const onSearchType = () => {
     //searchTerm = "";
     let searchBar = document.getElementById("search-bar");
     console.log(searchBar, "line 151");
-    let resultsDiv =document.getElementById("results");
-    searchBar.addEventListener("mouseleave", ()=> {searchBar.style.visibility ="hidden"});
+    let resultsDiv = document.getElementById("results");
+    searchBar.addEventListener("mouseleave", () => { searchBar.style.visibility = "hidden" });
 
 };
 //displaying search results
 const onSearch = () => {
 
-    searchInput.value="";
+    searchInput.value = "";
     if (document.getElementById("results")) {
-        let resultsDiv =document.getElementById("results"); resultsDiv.remove()}
+        let resultsDiv = document.getElementById("results"); resultsDiv.remove()
+    }
     document.getElementById("search-bar").style.visibility = "visible";
     let searchResults = document.createElement("div");
     searchResults.id = "results";
@@ -175,13 +174,12 @@ searchIcon.addEventListener("click", onSearch);
 const showMenu = () => {
     let menu = document.getElementById("menu");
     menu.style.visibility = "visible";
-    menu.addEventListener("mouseleave", ()=> {menu.style.visibility ="hidden"});
+    menu.addEventListener("mouseleave", () => { menu.style.visibility = "hidden" });
 
 };
 
 const hideMenu = () => {
     document.getElementById("menu").style.visibility = "hidden";
-    //document.getElementById("menu-bar").style.display = "block";
 };
 
 document.getElementById("menu-bar").addEventListener("click", showMenu);
@@ -264,7 +262,6 @@ smallCartLink.appendChild(smallCartIcon);
 smallHeaderIcons.appendChild(smallCartLink);
 
 
-//let bottomMenu =document.getElementById("bottom-menu");
 
 const showBottomMenu = () => {
     document.getElementById("bottom-menu-icon").style.display = "none";

@@ -1,12 +1,9 @@
 
 const calculateShipping = () => {
     let shoppingCart = getShoppingCart();
-    //console.log(shoppingCart, "shipping");
     let delSearch = shoppingCart.filter(prod => prod.id === 0 || prod.id === 1 || prod.id === 2);
     console.log(delSearch, "delSearch");
-    //console.log(delSearch.length, "length");
     let mailSearch = shoppingCart.filter(prod => prod.id === 4);
-    //console.log(mailSearch, "mailSearch", mailSearch.length);
     let shipping = 0;
 
     if (delSearch.length > 0) {
@@ -38,7 +35,7 @@ const findSubTotal = () => {
 
 //displays subTotal
 
-const displaySubTotal = ()=> {
+const displaySubTotal = () => {
     document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
 };
 
@@ -63,7 +60,6 @@ const getSalesTax = () => {
     salesTax = salesTax.toFixed(2);
     console.log(salesTax, "getSalesTax");
     return salesTax;
-    //document.getElementById("tax").innerHTML = `$${salesTax}`;
 };
 
 const displaySalesTax = () => {
@@ -73,23 +69,23 @@ const displaySalesTax = () => {
 //get total and display
 const getTotal = () => {
     let total = Number(findSubTotal()) + Number(getSalesTax()) + Number(calculateShipping());
-    total= Number(total);
+    total = Number(total);
     return total = total.toFixed(2);
-    
+
 };
 
-const displayTotal =()=> {
+const displayTotal = () => {
     document.getElementById("total").innerHTML = `$${getTotal()}`;
 };
 
 //recalculates and displays, subtotal, tax, shipping and total
-const displaySubTaxShipTotal= ()=>{
-    
+const displaySubTaxShipTotal = () => {
+
     displaySubTotal();
     displaySalesTax();
     displayShipping();
     displayTotal();
-    
+
 };
 
 //remove from cart
@@ -140,7 +136,6 @@ const changeQtyPlus = () => {
             saveToCart(shoppingCart);
             let newQty = shoppingCart[i].quantity;
             event.target.previousElementSibling.innerHTML = `<span>${newQty}</span>`;
-            //right here
             let newPrice = shoppingCart[i].price * shoppingCart[i].quantity;
             event.target.parentElement.nextElementSibling.innerHTML = `${newPrice}`
         }
@@ -216,12 +211,12 @@ const displayCart = () => {
 
 displayCart();
 
-//subtotal
-// document.getElementById("subtotal").innerHTML = `$${findSubTotal()}`;
-
 
 
 displaySalesTax();
+
+let checkout = document.getElementById("checkout-button");
+checkout.addEventListener("click", ()=>{alert("Payment is not set up, this site is for demo purposes only")})
 
 const handleCheckout = async () => {
     try {

@@ -1,4 +1,3 @@
-
 #main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -33,21 +32,21 @@ p {
 }
 
 #product-photo {
-    
+
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 50%; 
-   
+    object-position: 50% 50%;
+
 }
 
 .thumbnails {
     display: grid;
-    grid-template-columns: 55px 55px 55px 55px 55px 55px 55px 55px 55px ;
+    grid-template-columns: 55px 55px 55px 55px 55px 55px 55px 55px 55px;
     grid-auto-rows: 110px;
     grid-gap: 1rem;
     margin-top: 1rem;
-   
+
 }
 
 .thumbnail {
@@ -61,7 +60,7 @@ p {
     height: 100%;
     object-fit: cover;
     object-position: 50% 50%;
-    
+
 }
 
 
@@ -103,6 +102,7 @@ label {
     margin-right: .65rem;
     margin-bottom: 1rem;
 }
+
 select {
     border: none;
     font-size: 1.25rem;
@@ -114,11 +114,11 @@ select {
 }
 
 @media only screen and (max-width: 768px) and (min-width: 315px) {
-  
+
 
     #main {
         grid-auto-rows: 400px;
-        margin: 0 5%; 
+        margin: 0 5%;
         grid-gap: 2rem;
     }
 
@@ -129,8 +129,8 @@ select {
         justify-items: center;
         align-content: center;
         margin: 5% .25rem;
-   
-        
+
+
     }
 
     .prod-img-container {
@@ -154,28 +154,28 @@ select {
     footer {
         height: 500px;
         display: inline-block;
-        
+
     }
 
-   
+
 
 
 }
 
 @media only screen and (max-width: 1200px) and (min-width: 769px) {
 
-  
+
     #main {
         grid-auto-rows: 400px;
-        margin: 31% 5% 25% 5%; 
+        margin: 31% 5% 25% 5%;
         grid-gap: 2rem;
     }
 
     .thumbnails {
-        grid-template-columns: 30px 30px 30px 30px 30px 30px 30px 30px 30px ;
+        grid-template-columns: 30px 30px 30px 30px 30px 30px 30px 30px 30px;
         grid-auto-rows: 45px;
         grid-gap: .25rem;
-        
+
     }
 
     .prod-img-container {
@@ -198,7 +198,7 @@ select {
     footer {
         height: 500px;
         display: inline-block;
-        
+
     }
 
 
@@ -207,8 +207,8 @@ select {
 @media only screen and (max-width: 1475px) and (min-width: 1201px) {
 
     #main {
-        
-        margin: 18% 5% 20% 5%; 
-     
+
+        margin: 18% 5% 20% 5%;
+
     }
 }
